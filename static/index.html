@@ -1,0 +1,47 @@
+<html>
+<title>ANN Flask App</title>
+<body onload='onlo()'>
+
+ <table style='width:100%'>
+	<tr><td>Check an image's resemblance to a dog breed:</td></tr>
+	<tr><td style='width:100%'>Test URL: <input type='url' name='image_url' id='image_url' style='width:80%'/></td></tr>
+	<tr><td><input type='button' value='Test' onclick="test_dog()" /></td></tr>
+	<tr><td style='width:200px;border:0;font-size:2em;color:blue;' id='output_msg'></td></tr>
+	<tr><td><img id='image_display' src='' alt='Test Image'/></td></tr>
+	<tr><td style='width:100%'><a id='sim_ifr' href='https://www.google.com/search?tbm=isch&q=dogs' target='_blank'>Link to similar images</a></td></tr>
+<table>
+
+<script>
+ function onlo() {
+	var startImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/St._Bernard_puppy.jpg/220px-St._Bernard_puppy.jpg';
+	document.getElementById('image_url').value=startImage;
+	document.getElementById('image_display').src=startImage;
+}
+
+function test_dog() {
+        var url = document.getElementById('image_url').value;
+	document.getElementById('image_display').src=url;
+	document.getElementById('output_msg').innerHTML = 'Processing ... ';
+
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+  		if (this.readyState == 4) {
+		       var outm = '';
+                       if(this.status == 200) {
+	    			var breedType = this.responseText;
+				outm = breedType;
+				document.getElementById('sim_ifr').href='https://www.google.com/search?tbm=isch&q='+breedType;
+			} else {
+				outm = 'Error '+ this.status;
+			}
+			document.getElementById('output_msg').innerHTML =  outm;
+  		}
+	};
+	xhttp.open("GET", "/dog_test?image_url="+encodeURIComponent(url), true);
+	xhttp.send();
+	
+}
+</script>
+
+</body>
+</html>

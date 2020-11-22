@@ -1,7 +1,7 @@
-# nn-flaskapp
-Flask Webapp of ANN Projects (this is not a reference implementation)
+# ANN Projects (this is not a reference implementation)
 
-To run the example in a conda environment
+
+To run the flask app in a conda environment
 
 ```bash
 conda create --name nn-flaskapp -y python=3.6
